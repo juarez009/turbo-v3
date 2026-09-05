@@ -1,0 +1,37 @@
+project_id = "apartaya"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[storage]
+enabled = true
+file_size_limit = "5MiB"
+
+[functions.webhooks]
+verify_jwt = false
+entrypoint = "./functions/webhooks/index.ts"
+
+[functions.worker]
+verify_jwt = false
+entrypoint = "./functions/worker/index.ts"
+
+[functions.orders]
+verify_jwt = false
+[functions.listings]
+verify_jwt = false
+[functions.account]
+verify_jwt = false
+[functions.operations]
+verify_jwt = false

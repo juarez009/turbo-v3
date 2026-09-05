@@ -1,0 +1,14 @@
+node_modules/
+.npm-cache/
+.next/
+.data/
+artifacts/
+.env
+.env.*
+!.env.example
+coverage/
+infra/data/
+backups/
+.supabase/
+supabase/.temp/
+supabase/.branches/

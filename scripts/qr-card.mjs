@@ -1,0 +1,12 @@
+import QRCode from 'qrcode';
+import {mkdir,writeFile} from 'node:fs/promises';
+const [destination,label='Apartá este artículo']=process.argv.slice(2);
+if(!destination)throw new Error('Uso: node scripts/qr-card.mjs https://tu-dominio/slug "Nombre del artículo"');
+const url=new URL(destination);
+if(url.protocol!=='https:'||url.username||url.password)throw new Error('Se requiere un enlace HTTPS sin credenciales');
+const escape=value=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const svg=await QRCode.toString(url.href,{type:'svg',errorCorrectionLevel:'M',margin:4,color:{dark:'#122437',light:'#ffffff'}});
+await mkdir('artifacts',{recursive:true});
+const card=`<article><b class="brand">aparta<span>ya</span></b><h1>${escape(label)}</h1>${svg}<p>Escaneá, apartá y retirá.</p><small>${escape(url.hostname)}</small></article>`;
+await writeFile('artifacts/qr-cards.html',`<!doctype html><html lang="es"><meta charset="utf-8"><title>Tarjetas ApartaYa</title><style>@page{size:A4;margin:10mm}*{box-sizing:border-box}body{font-family:Arial;color:#122437;display:grid;grid-template-columns:1fr 1fr;gap:10mm}article{text-align:center;border:1px dashed #99aabb;border-radius:8px;padding:10mm;break-inside:avoid}.brand{font-size:24pt;letter-spacing:-1pt}.brand span{color:#124bdb}h1{font-size:17pt}svg{width:48mm;height:48mm}p{font-size:12pt}small{font-size:10pt}</style>${card.repeat(4)}</html>`);
+console.log('artifacts/qr-cards.html: cuatro tarjetas por hoja. Verificá el destino antes de imprimir.');

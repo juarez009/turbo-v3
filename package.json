@@ -1,0 +1,21 @@
+{
+  "name": "apartaya",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "dev": "node --env-file-if-exists=.env scripts/local-server.mjs",
+    "check": "node scripts/check.mjs",
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:web": "npm --prefix apps/web run build",
+    "demo": "node scripts/demo.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "qrcode": "1.5.4"
+  }
+}

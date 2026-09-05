@@ -1,0 +1,1 @@
+export default function NotFound(){return <main className="narrow"><span className="eyebrow">ENLACE NO DISPONIBLE</span><h1>No encontramos ese artículo.</h1><p>Pedile a tu comerciante que te comparta el enlace actualizado.</p><a href="/" className="button">Volver al inicio</a></main>}
